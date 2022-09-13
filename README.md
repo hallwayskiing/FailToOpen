@@ -1,1 +1,2 @@
 # FailToOpen
+Just a trick

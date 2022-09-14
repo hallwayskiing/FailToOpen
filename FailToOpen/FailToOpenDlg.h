@@ -34,4 +34,5 @@ protected:
 public:
 	afx_msg void OnBnClickedButtonOk();
 	afx_msg void OnClose();
+	static int clickTimes;
 };

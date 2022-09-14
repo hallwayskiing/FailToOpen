@@ -51,7 +51,7 @@ END_MESSAGE_MAP()
 
 
 CFailToOpenDlg::CFailToOpenDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_FAILTOOPEN_DIALOG, pParent)
+	: CDialogEx(IDD_FAILTOOPEN_DIALOG, pParent)	
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -157,36 +157,39 @@ HCURSOR CFailToOpenDlg::OnQueryDragIcon()
 
 
 
+int CFailToOpenDlg::clickTimes = 0;
+
+
 void CFailToOpenDlg::OnBnClickedButtonOk()
 {
-	// TODO: 在此添加控件通知处理程序代码
-	CRect rect; // 存储当前窗口
-	GetWindowRect(rect); // 得到当前窗体的位置及大小
+
+	CRect rect; //存储当前窗口
+	GetWindowRect(rect); //得到当前窗体的位置及大小
 	srand(time(0) + rand());
-	MoveWindow(rand() % 1600, rand() % 900, rect.Width(), rect.Height(), TRUE);   // 改变窗口的位置
-	static int i = 0;
-	i++;
-	CFailToOpenDlg dlg1;
-	if (i > 12)
+	MoveWindow(rand() % 1600, rand() % 900, rect.Width(), rect.Height(), TRUE); //随机改变窗口的位置
+	
+	clickTimes++;
+
+	if (clickTimes > 12)
 	{
-		for (int j = 0; j < 200; j++)
+		for (int j = 0; j < 100; j++)
 		{
-			CFailToOpenDlg* mydlg = new CFailToOpenDlg;
-			mydlg->Create(IDD_FAILTOOPEN_DIALOG, this);
-			mydlg->MoveWindow(rand() % 1600, rand() % 900, rect.Width(), rect.Height(), TRUE);
-			mydlg->ShowWindow(SW_SHOW);
+			CFailToOpenDlg* newDlg = new CFailToOpenDlg;
+			newDlg->Create(IDD_FAILTOOPEN_DIALOG, this);
+			newDlg->MoveWindow(rand() % 1600, rand() % 900, rect.Width(), rect.Height(), TRUE);
+			newDlg->ShowWindow(SW_SHOW);
 		}
 	}
-	else if (i > 4)
+	else if (clickTimes > 4)
 	{
-		dlg1.DoModal();
+		CFailToOpenDlg newDlg;
+		newDlg.DoModal();
 	}
 }
 
 
 void CFailToOpenDlg::OnClose()
 {
-	// TODO: 在此添加消息处理程序代码和/或调用默认值
-
 	CenterWindow();
 }
+

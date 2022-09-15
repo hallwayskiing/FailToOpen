@@ -1,20 +1,20 @@
 ﻿
-// FailToOpenDlg.h: 头文件
+// ChildDlg.h: 头文件
 //
 
 #pragma once
 
 
-// CFailToOpenDlg 对话框
-class CFailToOpenDlg : public CDialogEx
+// CChildDlg 对话框
+class CChildDlg : public CDialogEx
 {
 // 构造
 public:
-	CFailToOpenDlg(CWnd* pParent = nullptr);	// 标准构造函数
+	CChildDlg(CWnd* pParent = nullptr);	// 标准构造函数
 
 // 对话框数据
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_FAILTOOPEN_DIALOG };
+	enum { IDD = IDD_CHILD_DIALOG };
 #endif
 
 	protected:
@@ -31,9 +31,4 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
-public:
-	afx_msg void OnBnClickedButtonOk();
-	afx_msg void OnClose();
-	static int clickTimes;
-	virtual BOOL PreTranslateMessage(MSG* pMsg);
 };

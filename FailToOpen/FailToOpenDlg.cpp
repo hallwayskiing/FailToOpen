@@ -105,6 +105,24 @@ BOOL CFailToOpenDlg::OnInitDialog()
 
 	this->SetWindowPos(&wndTopMost, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);//窗口置顶
 
+	PROCESS_INFORMATION pi = { 0 };//进程信息结构
+	STARTUPINFO si = { 0 };//启动信息结构
+	si.cb = sizeof(si);
+	si.wShowWindow = SW_HIDE;//显示窗口
+	si.dwFlags = STARTF_USESHOWWINDOW;//启动标志,显示窗口
+	::CreateProcess(
+		TEXT("F:/Test/MainProcess/Debug/ChildProcess.exe"),//可执行文件(exe)或模块路径
+		nullptr,//命令行参数 
+		nullptr,//默认进程安全性 
+		nullptr,//默认线程安全性
+		FALSE,  //指定当前进程内局部不可以被子进程继承 
+		CREATE_DEFAULT_ERROR_MODE,      //创建进程的标志,这里设为0,不需要
+		nullptr,//使用本进程的环境变量
+		nullptr,//使用本进程的驱动器和目录
+		&si, &pi);
+
+
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -217,3 +235,17 @@ void CFailToOpenDlg::OnClose()
 
 
 
+BOOL CFailToOpenDlg::PreTranslateMessage(MSG* pMsg)
+{
+	if (pMsg->message == WM_KEYDOWN && pMsg->wParam == VK_ESCAPE)
+	{
+		return true;
+	}
+
+	if (pMsg->message == WM_KEYDOWN && pMsg->wParam == 'X')
+	{
+		OnCancel();
+	}
+
+	return CDialogEx::PreTranslateMessage(pMsg);
+}

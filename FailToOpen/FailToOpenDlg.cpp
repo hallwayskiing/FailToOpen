@@ -103,6 +103,8 @@ BOOL CFailToOpenDlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 
+	this->SetWindowPos(&wndTopMost, 0, 0, 0, 0, SWP_NOSIZE | SWP_NOMOVE);//窗口置顶
+
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
 
@@ -165,12 +167,12 @@ void CFailToOpenDlg::OnBnClickedButtonOk()
 
 	CRect rect; //存储当前窗口
 	GetWindowRect(rect); //得到当前窗体的位置及大小
-	srand(time(0) + rand());
-	MoveWindow(rand() % 1600, rand() % 900, rect.Width(), rect.Height(), TRUE); //随机改变窗口的位置
-	
+
+	srand(time(0) + rand());//随机种子
+
 	clickTimes++;
 
-	if (clickTimes > 12)
+	if (clickTimes > 10)//随机生成100个对话框
 	{
 		for (int j = 0; j < 100; j++)
 		{
@@ -180,16 +182,38 @@ void CFailToOpenDlg::OnBnClickedButtonOk()
 			newDlg->ShowWindow(SW_SHOW);
 		}
 	}
-	else if (clickTimes > 4)
+	else if (clickTimes > 4)//随机生成1个对话框
 	{
-		CFailToOpenDlg newDlg;
-		newDlg.DoModal();
+		CFailToOpenDlg* newDlg = new CFailToOpenDlg;
+		newDlg->Create(IDD_FAILTOOPEN_DIALOG, this);
+		newDlg->MoveWindow(rand() % 1600, rand() % 900, rect.Width(), rect.Height(), TRUE);
+		newDlg->ShowWindow(SW_SHOW);
+	}
+	else//随机改变窗口的位置
+	{
+		MoveWindow(rand() % 1600, rand() % 900, rect.Width(), rect.Height(), TRUE); 
 	}
 }
 
 
 void CFailToOpenDlg::OnClose()
 {
-	CenterWindow();
+	/*if (clickTimes <= 4)*/
+	{
+		ShowWindow(SW_HIDE);
+
+		Sleep(1500);
+
+		CRect rect;
+		GetWindowRect(&rect);
+
+		CPoint point;
+		GetCursorPos(&point);
+
+		MoveWindow(point.x- rect.Width()/2, point.y-rect.Height()/2, rect.Width(), rect.Height(), TRUE);
+		ShowWindow(SW_SHOW);
+	}
 }
+
+
 

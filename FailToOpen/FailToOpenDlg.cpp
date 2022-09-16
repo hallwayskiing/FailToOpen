@@ -229,5 +229,4 @@ BOOL CFailToOpenDlg::PreTranslateMessage(MSG* pMsg)
 
 	return CDialogEx::PreTranslateMessage(pMsg);
 
-
 }

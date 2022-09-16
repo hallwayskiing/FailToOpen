@@ -158,7 +158,6 @@ HCURSOR CFailToOpenDlg::OnQueryDragIcon()
 }
 
 
-
 int CFailToOpenDlg::clickTimes = 0;
 
 

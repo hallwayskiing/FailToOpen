@@ -157,7 +157,6 @@ HCURSOR CFailToOpenDlg::OnQueryDragIcon()
 }
 
 
-
 int CFailToOpenDlg::clickTimes = 0;
 
 
@@ -229,4 +228,5 @@ BOOL CFailToOpenDlg::PreTranslateMessage(MSG* pMsg)
 	}
 
 	return CDialogEx::PreTranslateMessage(pMsg);
+
 }
